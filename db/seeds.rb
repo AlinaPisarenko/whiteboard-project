@@ -1,4 +1,4 @@
-# require 'faker'
+require 'faker'
 User.all.destroy_all
 Team.all.destroy_all
 Project.all.destroy_all
