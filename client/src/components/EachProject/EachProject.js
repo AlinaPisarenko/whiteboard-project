@@ -6,7 +6,7 @@ export default function EachProject({ project }) {
   console.log(project);
   return (
     <div className="eachproject">
-      <h4>{title}</h4>
+      <h4>1{title}</h4>
       <p>{description}</p>
       <img src={whiteboard} />
     </div>
