@@ -1,0 +1,17 @@
+.userpage {
+  display: grid;
+  grid-template-columns: 70% 30%;
+  //   grid-template-rows: 80px auto 80px;
+  //   column-gap: 10px;
+  //   row-gap: 15px;
+}
+.profile-img {
+  width: 15rem;
+  height: 15rem;
+  border-radius: 50%;
+}
+.all-users-profile-img {
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+}
