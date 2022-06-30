@@ -2,7 +2,7 @@
   "name": "whiteboard-project",
   "description": "Build scripts for Heroku",
   "engines": {
-    "node": "16.x"
+    "node": ">= 14"
   },
   "scripts": {
     "clean": "rm -rf public",
