@@ -11,6 +11,8 @@
     "heroku-postbuild": "npm run clean && npm run build && npm run deploy"
   },
   "dependencies": {
+    "canvas-to-image": "^2.2.0",
+    "roughjs": "^4.5.2",
     "sass": "^1.53.0"
   }
 }

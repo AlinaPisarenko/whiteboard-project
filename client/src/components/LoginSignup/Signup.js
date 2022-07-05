@@ -1,9 +1,9 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-export default function Signup({ onLogin }) {
+export default function Signup({ onLogin, teams }) {
   let history = useHistory();
-
+  console.log(teams);
   const handleSignup = async (e) => {
     e.preventDefault();
     let form = new FormData(document.querySelector(`#signup-form`));
@@ -16,6 +16,7 @@ export default function Signup({ onLogin }) {
     history.push(`/me`);
   };
 
+  if (!teams) return "loading";
   return (
     <div>
       <form
@@ -78,6 +79,19 @@ export default function Signup({ onLogin }) {
 
         <div className="form__group">
           <input
+            type="password"
+            className="form__input"
+            placeholder="Confirm password"
+            id="confirmed-password"
+            name="confirmed-password"
+          />
+          <label htmlFor="confirmed-password" className="form__label">
+            Confirm password
+          </label>
+        </div>
+
+        <div className="form__group">
+          <input
             type="text"
             className="form__input"
             placeholder="Image URL"
@@ -90,15 +104,13 @@ export default function Signup({ onLogin }) {
         </div>
 
         <div className="form__group">
-          <input
-            type="password"
-            className="form__input"
-            placeholder="Confirm password"
-            id="confirmed-password"
-            name="confirmed-password"
-          />
-          <label htmlFor="confirmed-password" className="form__label">
-            Confirm password
+          <select name="team_id" id="team">
+            {teams.map((el) => {
+              return <option value={el.id}> {el.name} </option>;
+            })}
+          </select>
+          <label htmlFor="team" className="form__label">
+            Choose your team
           </label>
         </div>
 

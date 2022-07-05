@@ -2,7 +2,7 @@ class UsersController < ApplicationController
       skip_before_action :authorize, only: :create
 
 def index  
-render json: User.all, status: :ok
+render json: User.where(team_id: @current_user.team_id), status: :ok
 end
 
 
@@ -19,6 +19,6 @@ end
     private 
 
     def user_params 
-        params.permit(:name, :username, :password, :email, :profile_img)
+        params.permit(:name, :username, :password, :email, :profile_img, :team_id)
     end
 end
