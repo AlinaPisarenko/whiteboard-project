@@ -8,25 +8,49 @@
   //   row-gap: 15px;
 }
 .current-user {
-  padding-top: 3rem;
+  padding-top: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 }
 .user-name {
-  font-size: 3rem;
+  text-transform: capitalize;
+  font-size: 3.5rem;
+  font-weight: 200;
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
+
+.image-container {
+  width: 17rem;
+  height: 17rem;
+  margin-top: 5rem;
+  margin-bottom: 3rem;
+  background-image: linear-gradient(to bottom right, #0dddfd, #9a4be9, #ff09ff);
+
+  transform: scale(1.25);
+  clip-path: url(#blob-two);
+
+  outline: none;
+  border-bottom: 1px solid;
+
+  border-image-slice: 1;
+
+  border-image-source: linear-gradient(to left, #fff45be6, #e72da3);
+}
+
 .profile-img {
-  width: 15rem;
-  height: 15rem;
-  border-radius: 50%;
+  clip-path: url(#blob);
+  width: 18rem;
+  height: 18rem;
+
+  margin-top: -19.9rem;
+  margin-left: 1.25rem;
+
+  transform: scale(1.2);
 }
 .all-users-profile-img {
-  width: 6rem;
-  height: 6rem;
-  border-radius: 50%;
 }
 .user-projects {
   //   padding-left: 5vh;
@@ -62,12 +86,25 @@
   right: 0;
   top: 0;
   width: 30vw;
-  height: inherit;
+  height: 100vh;
 }
 .add-btn {
 }
 
 .all-users {
+  height: 46vh;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  &__team-info {
+    padding-left: 2rem;
+    padding-bottom: 1rem;
+    font-size: 1.75rem;
+    color: rgba(255, 255, 255, 0.5);
+
+    // white-space: nowrap;
+  }
 }
 .each-user {
   border-radius: 10px;
@@ -75,17 +112,62 @@
   margin-bottom: 1rem;
   padding: 1rem;
   width: 90%;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.125);
   display: flex;
   align-items: center;
+  position: relative;
+
+  &__profile-img {
+    width: 6rem;
+    height: 6rem;
+    border-radius: 50%;
+
+    overflow: hidden;
+    // position: relative;
+
+    // &:before {
+    //   width: 6.3rem;
+    //   height: 6.3rem;
+    //   content: "";
+    //   position: absolute;
+    //   // top: rem;
+    //   // right: 28.5rem;
+    //   // bottom: 0;
+    //   // left: 0;
+    //   z-index: -1;
+    //   margin: 5px;
+    //   border-radius: inherit;
+    //   background: linear-gradient(to bottom right, #0dddfd, #9a4be9, #ff09ff);
+    // }
+  }
+  &__img-wrap {
+    position: absolute;
+    z-index: -1;
+    top: 0.85rem;
+    left: 0.85rem;
+    // border: 1px solid rgb(155, 0, 158);
+    background-image: linear-gradient(
+      to bottom right,
+      #0dddfd,
+      #9a4be9,
+      #ff09ff
+    );
+    height: 6.3rem;
+    width: 6.3rem;
+    border-radius: 50%;
+  }
 
   &__info {
     padding-left: 2rem;
   }
   &__name {
+    text-transform: capitalize;
     font-size: 2rem;
+    font-weight: 400;
+    margin-bottom: -0.7rem;
   }
   &__project-count {
     font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.5);
   }
 }

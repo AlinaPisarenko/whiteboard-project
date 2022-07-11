@@ -1,8 +1,15 @@
 import { useHistory } from "react-router-dom";
-import React from "react";
+import { useEffect, useState } from "react";
 
 export default function Login({ onLogin }) {
   const history = useHistory();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 200);
+  }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -23,36 +30,36 @@ export default function Login({ onLogin }) {
   };
 
   return (
-    <div>
-      <form className="form" id="signup-form" onSubmit={handleLogin}>
-        <h2>Welcome back</h2>
-        <div className="form__group">
+    <div className={loading ? "login" : "login timeout "}>
+      <h2 className="login__greeting">Welcome back</h2>
+      <form className="login__form" id="signup-form" onSubmit={handleLogin}>
+        <div className="login__form__group">
           <input
             type="text"
-            className="form__input"
-            placeholder="Username"
+            className="login__form__input"
             id="name"
             name="username"
+            required=" "
           />
-          <label htmlFor="name" className="form__label">
+          <label htmlFor="name" className="login__form__label">
             Username
           </label>
         </div>
-        <div className="form__group">
+        <div className="login__form__group">
           <input
             type="password"
-            className="form__input"
-            placeholder="Password"
+            className="login__form__input"
             id="password"
             name="password"
+            required=" "
           />
-          <label htmlFor="password" className="form__label">
+          <label htmlFor="password" className="login__form__label">
             Password
           </label>
         </div>
 
-        <div className="form__group">
-          <button>Log in</button>
+        <div className="login__form__group">
+          <button className="btn login__btn-text">Log in</button>
         </div>
       </form>
     </div>

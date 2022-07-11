@@ -1,0 +1,118 @@
+.login {
+  transition: all 0.8s ease-in-out;
+  clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+  opacity: 0;
+  background-color: rgba(255, 255, 255, 0.3);
+  height: 100vh;
+
+  position: relative;
+
+  &__greeting {
+    position: absolute;
+    right: 17rem;
+    top: 7rem;
+    font-family: "Montserrat Alternates", sans-serif;
+    font-weight: 400;
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    &__signup {
+      right: 27rem;
+      top: 8rem;
+    }
+  }
+  &__form {
+    position: absolute;
+    right: 5.5vw;
+    top: 25vh;
+    width: 30rem;
+    position: absolute;
+
+    &__label {
+      position: relative;
+      top: -4rem;
+      left: 0;
+      padding-left: 1rem;
+      font-size: 1.6rem;
+      font-weight: 400;
+      // margin-left: 2rem;
+      // margin-top: 0.7rem;
+      display: block;
+      transition: all 0.4s;
+    }
+
+    &__input:focus ~ label,
+    &__input:valid ~ label {
+      top: -7rem;
+      left: -1rem;
+      //   color: #03e9f4;
+      font-size: 1.2rem;
+    }
+
+    &__group {
+      width: 100%;
+      margin-right: 1rem;
+      margin-bottom: 1rem;
+      &__signup {
+        width: 45%;
+        margin-bottom: -0.5rem;
+      }
+    }
+
+    &__input {
+      font-size: 1.5rem;
+      font-family: "Montserrat Alternates", sans-serif;
+      font-weight: 200;
+      color: inherit;
+      padding: 1.5rem 2rem;
+      border-radius: 5px;
+      background-color: rgba(white, 0.2);
+      border: none;
+      border-bottom: 3px solid transparent;
+      width: 100%;
+      display: block;
+      transition: all 0.3s;
+
+      &:focus {
+        outline: none;
+        box-shadow: 0 1rem 2rem rgba(black, 0.1);
+        border-bottom: 3px solid;
+
+        border-image-slice: 1;
+
+        border-image-source: linear-gradient(to left, #fff45be6, #e72da3);
+        &:invalid {
+          border-bottom: 3px solid red;
+        }
+      }
+
+      &::-webkit-input-placeholder {
+        color: rgba(255, 255, 255, 0.6);
+      }
+    }
+  }
+
+  &__btn-text {
+    margin-left: 0;
+    margin-top: -0.3rem;
+    width: 100%;
+  }
+}
+
+.timeout {
+  opacity: 1;
+  clip-path: polygon(60vw 0, 100% 0, 100% 100%, 65vw 100%);
+}
+.signup {
+  width: 30vw;
+  right: 3rem;
+  top: 25vh;
+  display: flex;
+  flex-wrap: wrap;
+}
+.dropdown {
+  width: 93%;
+}
+
+.signup-btn {
+  width: 96%;
+}

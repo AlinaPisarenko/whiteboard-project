@@ -1,5 +1,14 @@
-.review-img {
-  height: 6rem;
-  width: 6rem;
-  border-radius: 50%;
+.each-review {
+  display: flex;
+  align-items: center;
+
+  &__img {
+    height: 6rem;
+    width: 6rem;
+    border-radius: 50%;
+  }
+
+  &:not(:last-child) {
+    margin-bottom: 2rem;
+  }
 }

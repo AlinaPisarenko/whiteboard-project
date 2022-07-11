@@ -1,2 +1,95 @@
 .homepage {
+  // transition: all 2s ease-in-out;
+  height: 100vh;
+  position: relative;
+
+  background-color: #26004d;
+  background-image: radial-gradient(
+      at 12% 58%,
+      rgb(130, 75, 178) 0,
+      hsla(64, 89%, 70%, 0) 50%
+    ),
+    radial-gradient(
+      at 48% 51%,
+      rgba(220, 41, 220, 0.785) 0,
+      hsla(287, 26%, 56%, 0) 60%
+    ),
+    radial-gradient(at 14% 36%, rgb(255, 219, 18) 0, hsla(17, 93%, 70%, 0) 50%),
+    radial-gradient(at 22% 85%, rgb(84, 2, 172) 0, hsla(193, 95%, 62%, 0) 50%),
+    radial-gradient(
+      at 70% 0%,
+      hsla(182, 91%, 67%, 1) 0,
+      hsla(182, 91%, 67%, 0) 40%
+    ),
+    radial-gradient(
+      at 13% 57%,
+      hsla(121, 88%, 65%, 1) 0,
+      hsla(121, 88%, 65%, 0) 50%
+    ),
+    radial-gradient(
+      at 27% 68%,
+      rgba(36, 2, 70, 0.9) 0,
+      hsla(223, 93%, 57%, 0) 50%
+    );
+
+  &__page-title {
+    transition: all 0.6s cubic-bezier(0.43, -0.41, 0.64, 1.34);
+    font-family: "Baumans", cursive;
+    position: absolute;
+    top: 38%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 14rem;
+    padding-bottom: 3rem;
+  }
+
+  .moved {
+    transform: translate(-120%, -50%);
+  }
+
+  &__type-effect {
+    position: absolute;
+    top: 56%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4rem;
+    transition: all 0.6s cubic-bezier(0.43, -0.41, 0.64, 1.34);
+  }
+
+  .moved-p {
+    transform: translate(-150%, -50%);
+  }
+
+  &__btn-group {
+    position: absolute;
+    top: 67%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &__btn {
+  }
+}
+.btn {
+  background: transparent;
+  font-size: 1.4rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #fff;
+  border: 1px solid #fff;
+  border-radius: 5rem;
+  padding: 1rem 6rem;
+  margin: 2rem;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    color: rgb(154, 0, 164);
+    background: #fff;
+    box-shadow: 0 1rem 2rem rgba(black, 0.2);
+    transform: translateY(-2px);
+  }
+  &:active {
+    box-shadow: 0 0.5rem 1rem rgba(black, 0.15);
+    transform: translateY(0);
+  }
 }

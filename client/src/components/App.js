@@ -7,11 +7,20 @@ import HomePage from "./HomePage/HomePage";
 import Navbar from "./NavBar/NavBar";
 import UserPage from "./UserPage/UserPage";
 import Projects from "./Projects/Projects";
+import Whiteboard from "./Whiteboard/Whiteboard";
 
 function App() {
   const [user, setUser] = useState(null);
-  const [teams, setTeams] = useState(null);
+
   const [displayScreen, setDisplayScreen] = useState("projects");
+  const [displayedProject, setDisplayedProject] = useState(null);
+  const [allUsers, setAllUsers] = useState(null);
+
+  useEffect(() => {
+    fetch("/users")
+      .then((r) => r.json())
+      .then((data) => setAllUsers(data));
+  }, []);
 
   useEffect(() => {
     fetch("/me").then((r) => {
@@ -21,17 +30,14 @@ function App() {
     });
   }, []);
 
-  useEffect(() => {
-    fetch("/teams").then((r) => {
-      if (r.ok) {
-        r.json().then((data) => setTeams(data));
-      }
-    });
-  }, []);
-
   const onLogin = (userInfo) => {
     setUser(userInfo);
   };
+  // const onUpdateProject = (updatedProject) => {
+  //   onUpdateList(updatedProject);
+  // };
+
+  if (!allUsers) return "loading";
 
   return (
     <BrowserRouter>
@@ -46,16 +52,23 @@ function App() {
         ) : null}
         <Switch>
           <Route exact path="/">
-            <HomePage />
+            <HomePage onLogin={onLogin} />
           </Route>
           <Route exact path="/projects">
-            <Projects user={user} />
+            <Projects user={user} allUsers={allUsers} />
           </Route>
-          <Route exact path="/login">
+          {/* <Route exact path="/login">
             <Login onLogin={onLogin} />
           </Route>
           <Route exact path="/signup">
-            <Signup onLogin={onLogin} teams={teams} />
+            <Signup onLogin={onLogin} />
+          </Route> */}
+          <Route exact path="/projects/:id">
+            <Whiteboard
+              user={user}
+              displayedProject={displayedProject}
+              // onUpdateProject={onUpdateProject}
+            />
           </Route>
           <Route exact path="/me">
             {!user ? (
@@ -64,7 +77,9 @@ function App() {
               <UserPage
                 user={user}
                 setUser={setUser}
+                allUsers={allUsers}
                 displayScreen={displayScreen}
+                setDisplayedProject={setDisplayedProject}
               />
             )}
           </Route>

@@ -33,16 +33,16 @@ export default function NavBar({ setUser, setDisplayScreen, displayScreen }) {
   return (
     <div
       className={
-        displayScreen === "projects" ? "navigation" : "navigation-create-new"
+        displayScreen === "add-new" ? "navigation-create-new" : "navigation"
       }
     >
       <ul
         className="menu-bar"
-        style={
-          displayScreen === "add-new"
-            ? { backgroundColor: "rgba(255, 255, 255, 0.4)" }
-            : null
-        }
+        // style={
+        //   displayScreen === "add-new"
+        //     ? { backgroundColor: "rgba(255, 255, 255, 0.4)" }
+        //     : null
+        // }
       >
         {}
         <a href="#" className="nav-link" onClick={handleViewProjects}>

@@ -1,11 +1,59 @@
-import React from "react";
+import { useState } from "react";
+import Typed from "react-typed";
+import Signup from "../LoginSignup/Signup";
+import Login from "../LoginSignup/Login";
 
-export default function HomePage() {
+export default function HomePage({ onLogin }) {
+  const [homeDisplay, setHomeDisplay] = useState("none");
+  const el = document.querySelector(".homepage__page-title");
+  const handleOpenLogIn = (e) => {
+    // el.classList.toggle("moved");
+    setHomeDisplay("login");
+  };
+
+  const handleOpenSignup = () => {
+    setHomeDisplay("signup");
+  };
+
   return (
     <div className="homepage">
-      Homepage
-      <a href="/login">Log in</a>
-      <a href="/signup">Sign up</a>
+      <h1
+        className={
+          homeDisplay === "none"
+            ? "homepage__page-title"
+            : "homepage__page-title moved"
+        }
+      >
+        Purple
+      </h1>
+      <Typed
+        className={
+          homeDisplay === "none"
+            ? "homepage__type-effect"
+            : "homepage__type-effect moved-p"
+        }
+        strings={["I love to create.", "I love design.", "I love to share."]}
+        typeSpeed={150}
+        backSpeed={100}
+        loop
+      />
+      {homeDisplay === "none" ? (
+        <div className="homepage__btn-group">
+          <a
+            onClick={(e) => handleOpenLogIn(e)}
+            className="btn homepage__btn"
+            href="#"
+          >
+            Log in
+          </a>
+          <a onClick={handleOpenSignup} className="btn homepage__btn" href="#">
+            Sign up
+          </a>
+        </div>
+      ) : null}
+
+      {homeDisplay === "login" ? <Login onLogin={onLogin} /> : null}
+      {homeDisplay === "signup" ? <Signup onLogin={onLogin} /> : null}
     </div>
   );
 }

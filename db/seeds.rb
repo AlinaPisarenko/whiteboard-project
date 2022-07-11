@@ -23,7 +23,6 @@ Project.all.destroy_all
 #   'https://paintology.com/wp-content/uploads/2020/05/Dollify-eba31795-81fd-4ec8-8cce-4a2b3552a878-0.png',
 # 'https://fiverr-res.cloudinary.com/videos/t_main1,q_auto,f_auto/cqli186hjbvltzls3tae/make-your-cool-dollify-avatars-your-own-cartoon-character.png'
 
-
 # ]
 
 # 5.times do |i|

@@ -1,9 +1,9 @@
 .navigation {
   top: 3rem;
   // left: -2%;
-  position: relative;
+  position: fixed;
   width: 75%;
-  z-index: 5000;
+  z-index: 25000;
 }
 
 .navigation-create-new {
@@ -19,7 +19,7 @@
   border-radius: 25px;
   height: fit-content;
   display: inline-flex;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(255, 255, 255, 0.2);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   align-items: center;
@@ -53,7 +53,8 @@
     }
     &:hover {
       &::before {
-        background: linear-gradient(to bottom, #e8edec, #d2d1d3);
+        background: linear-gradient(to bottom, #f1f1f1, #e4e2e2);
+
         box-shadow: 0px 3px 20px 0px black;
         transform: scale(1.2);
       }

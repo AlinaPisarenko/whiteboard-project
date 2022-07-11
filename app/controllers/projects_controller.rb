@@ -16,6 +16,16 @@ project = find_project
   head :no_content
 end
 
+
+def update
+    project = find_project
+     if project.user === @current_user
+         project.update!(project_params)
+         render json: project, status: :created 
+     else render json: {error: "User is not valid"}
+     end
+end
+
 def show
 project = find_project
 render json: project, status: :ok

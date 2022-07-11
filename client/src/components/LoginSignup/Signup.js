@@ -1,9 +1,25 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
-export default function Signup({ onLogin, teams }) {
+export default function Signup({ onLogin }) {
+  const [teams, setTeams] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 200);
+  }, []);
+
   let history = useHistory();
-  console.log(teams);
+  useEffect(() => {
+    fetch("/teams").then((r) => {
+      if (r.ok) {
+        r.json().then((data) => setTeams(data));
+      }
+    });
+  }, []);
+
   const handleSignup = async (e) => {
     e.preventDefault();
     let form = new FormData(document.querySelector(`#signup-form`));
@@ -18,104 +34,113 @@ export default function Signup({ onLogin, teams }) {
 
   if (!teams) return "loading";
   return (
-    <div>
+    <div className={loading ? "login" : "login timeout"}>
+      <h2 className="login__greeting login__greeting__signup">Welcome!</h2>
       <form
-        className="form sign-up-form"
+        className="login__form signup"
         id="signup-form"
         onSubmit={handleSignup}
       >
-        <h2>Welcome</h2>
-        <div className="form__group">
+        <div className="login__form__group login__form__group__signup">
           <input
             type="text"
-            className="form__input"
-            placeholder="Full Name"
+            className="login__form__input"
             id="name"
             name="name"
+            required=" "
           />
-          <label htmlFor="name" className="form__label">
+          <label htmlFor="name" className="login__form__label">
             Full name
           </label>
         </div>
 
-        <div className="form__group">
+        <div className="login__form__group login__form__group__signup">
           <input
             type="text"
-            className="form__input"
-            placeholder="Username"
+            className="login__form__input"
             id="username"
             name="username"
+            required=" "
           />
-          <label htmlFor="username" className="form__label">
+          <label
+            htmlFor="username"
+            className="login__form__label login__form__group__signup"
+          >
             Username
           </label>
         </div>
 
-        <div className="form__group">
+        <div className="login__form__group login__form__group__signup">
           <input
             type="email"
-            className="form__input"
-            placeholder="Email"
+            className="login__form__input"
             id="email"
             name="email"
+            required=" "
           />
-          <label htmlFor="email" className="form__label">
+          <label htmlFor="email" className="login__form__label">
             Email
           </label>
         </div>
 
-        <div className="form__group">
+        <div className="login__form__group login__form__group__signup">
           <input
             type="password"
-            className="form__input"
-            placeholder="Password"
+            className="login__form__input"
             id="password"
             name="password"
+            required=" "
           />
-          <label htmlFor="password" className="form__label">
+          <label htmlFor="password" className="login__form__label">
             Password
           </label>
         </div>
 
-        <div className="form__group">
+        <div className="login__form__group login__form__group__signup">
           <input
             type="password"
-            className="form__input"
-            placeholder="Confirm password"
+            className="login__form__input"
             id="confirmed-password"
             name="confirmed-password"
+            required=" "
           />
-          <label htmlFor="confirmed-password" className="form__label">
+          <label htmlFor="confirmed-password" className="login__form__label">
             Confirm password
           </label>
         </div>
 
-        <div className="form__group">
+        <div className="login__form__group login__form__group__signup">
           <input
             type="text"
-            className="form__input"
-            placeholder="Image URL"
+            className="login__form__input"
             id="profile_img"
             name="profile_img"
+            required=" "
           />
-          <label htmlFor="profile_img" className="form__label">
+          <label htmlFor="profile_img" className="login__form__label">
             Image URL
           </label>
         </div>
 
-        <div className="form__group">
-          <select name="team_id" id="team">
+        <div className="login__form__group login__form__group__signup dropdown">
+          <select
+            required=" "
+            className="login__form__input"
+            name="team_id"
+            id="team"
+          >
+            <option> </option>
             {teams.map((el) => {
               return <option value={el.id}> {el.name} </option>;
             })}
           </select>
-          <label htmlFor="team" className="form__label">
+          <label htmlFor="team" className="login__form__label">
             Choose your team
           </label>
         </div>
 
-        <div className="form__group">
-          <button>Sign up</button>
+        <div className="login__form__group">
+          <button className="btn login__btn-text signup-btn">Sign up</button>
         </div>
       </form>
     </div>
