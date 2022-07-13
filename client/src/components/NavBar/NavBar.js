@@ -1,5 +1,13 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
+import logo from "./nav-2.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faFolderClosed,
+  faGlobe,
+  faCirclePlus,
+  faRightFromBracket,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function NavBar({ setUser, setDisplayScreen, displayScreen }) {
   const history = useHistory();
@@ -36,6 +44,7 @@ export default function NavBar({ setUser, setDisplayScreen, displayScreen }) {
         displayScreen === "add-new" ? "navigation-create-new" : "navigation"
       }
     >
+      <img className="nav-bar-new" src={logo} />
       <ul
         className="menu-bar"
         // style={
@@ -46,19 +55,18 @@ export default function NavBar({ setUser, setDisplayScreen, displayScreen }) {
       >
         {}
         <a href="#" className="nav-link" onClick={handleViewProjects}>
-          My Projects
+          <FontAwesomeIcon icon={faFolderClosed} />
         </a>
-
         <a href="#" className="nav-link" onClick={handleViewAllProjects}>
-          All projects
+          <FontAwesomeIcon icon={faGlobe} />
         </a>
 
         <a href="#" className="nav-link" onClick={handleAddNew}>
-          Create New
+          <FontAwesomeIcon icon={faCirclePlus} />
         </a>
 
         <a href="#" className="nav-link" onClick={handleLogoutClick}>
-          Log out
+          <FontAwesomeIcon icon={faRightFromBracket} />
         </a>
       </ul>
     </div>

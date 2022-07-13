@@ -8,6 +8,7 @@ import Navbar from "./NavBar/NavBar";
 import UserPage from "./UserPage/UserPage";
 import Projects from "./Projects/Projects";
 import Whiteboard from "./Whiteboard/Whiteboard";
+import EachProjectView from "./EachProjectView/EachProjectView";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -52,7 +53,7 @@ function App() {
         ) : null}
         <Switch>
           <Route exact path="/">
-            <HomePage onLogin={onLogin} />
+            <HomePage onLogin={onLogin} allUsers={allUsers} />
           </Route>
           <Route exact path="/projects">
             <Projects user={user} allUsers={allUsers} />
@@ -70,6 +71,9 @@ function App() {
               // onUpdateProject={onUpdateProject}
             />
           </Route>
+          <Route exact path="/projects/:id">
+            <EachProjectView user={user} />
+          </Route>
           <Route exact path="/me">
             {!user ? (
               "loading"
@@ -79,6 +83,7 @@ function App() {
                 setUser={setUser}
                 allUsers={allUsers}
                 displayScreen={displayScreen}
+                setDisplayScreen={setDisplayScreen}
                 setDisplayedProject={setDisplayedProject}
               />
             )}

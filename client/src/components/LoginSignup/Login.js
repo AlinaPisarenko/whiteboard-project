@@ -21,9 +21,9 @@ export default function Login({ onLogin }) {
 
     if (response.ok) {
       let user = await response.json();
-      history.push(`/me`);
       console.log(user);
       onLogin(user);
+      history.push(`/me`);
     } else {
       response.json().then((err) => console.log(err.errors));
     }

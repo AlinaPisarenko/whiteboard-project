@@ -16,7 +16,39 @@ body {
   font-family: "Montserrat Alternates", sans-serif;
 
   color: #fff;
-  background-color: #252848;
+  // background-color: #2c2f48;
+  // background-image: url("./bg-img.png");
+
+  background-color: #26004d;
+  background-image: radial-gradient(
+      at 12% 58%,
+      rgb(130, 75, 178) 0,
+      hsla(64, 89%, 70%, 0) 50%
+    ),
+    radial-gradient(
+      at 48% 51%,
+      rgba(220, 41, 220, 0.785) 0,
+      hsla(287, 26%, 56%, 0) 60%
+    ),
+    radial-gradient(at 14% 36%, rgb(255, 219, 18) 0, hsla(17, 93%, 70%, 0) 50%),
+    radial-gradient(at 22% 85%, rgb(84, 2, 172) 0, hsla(193, 95%, 62%, 0) 50%),
+    radial-gradient(
+      at 70% 0%,
+      hsla(182, 91%, 67%, 1) 0,
+      hsla(182, 91%, 67%, 0) 40%
+    ),
+    radial-gradient(
+      at 13% 57%,
+      hsla(121, 88%, 65%, 1) 0,
+      hsla(121, 88%, 65%, 0) 50%
+    ),
+    radial-gradient(
+      at 27% 68%,
+      rgba(36, 2, 70, 0.9) 0,
+      hsla(223, 93%, 57%, 0) 50%
+    );
+
+  background-size: cover;
   box-sizing: border-box;
   font-weight: 400;
   line-height: 1.7;

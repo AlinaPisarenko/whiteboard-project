@@ -53,9 +53,8 @@ export default function Projects({ user, allUsers }) {
           <img src={profile_img} className="profile-img" />
           <h2 className="user-name">{name}</h2>
         </div>
-
+        <h2 className="all-users__team-info">Your Team</h2>
         <div className="all-users">
-          <h2 className="all-users__team-info">Your Team</h2>
           {allUsers.map((el) => {
             return (
               <div className="each-user">

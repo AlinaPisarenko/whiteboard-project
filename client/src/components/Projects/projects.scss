@@ -1,11 +1,17 @@
 .all-projects {
+  transition: all 0.6s ease-in-out;
   position: absolute;
   left: 0;
   top: 0;
   width: 70vw;
+  height: 100vh;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
   margin: 0 auto;
   padding-top: 10rem;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }

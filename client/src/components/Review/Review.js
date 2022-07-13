@@ -26,7 +26,11 @@ export default function Review({
           <h3 className="each-review__user">{review?.name}</h3>
           <p className="each-review__content">{review?.content}</p>
         </div>
-        <button className="each-review__btn" onClick={handleDelete}>
+        <button
+          className="btn login__btn-text"
+          id="review-btn"
+          onClick={handleDelete}
+        >
           {" "}
           &times;
         </button>

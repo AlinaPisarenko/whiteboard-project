@@ -19,25 +19,53 @@
 .tool-box {
   z-index: 10000;
   position: fixed;
-  top: 20vh;
-  left: 5vh;
+  top: 60vh;
+  left: 6vh;
   color: white;
 }
-.new-project-form {
-  width: 20rem;
-  z-index: 10000;
+#new-project-form {
   position: fixed;
-  top: 90vh;
+  top: 85vh;
   left: 50%;
-  transform: translateX(-50%);
+  width: 80rem;
+  transform: translateX(-35%);
   color: white;
+  display: flex;
 
-  &__input {
-  }
+  // &__input {
+  // }
 
-  &__btn {
-  }
+  // &__btn {
+  // }
 }
 // .new-form {
 //   width: 20rem;
 // }
+#create-project-btn {
+  position: fixed;
+  right: -8vw;
+  top: 0vh;
+  text-align: center;
+  font-size: 3.5rem;
+  font-weight: 400;
+  height: 5rem;
+  width: 5rem;
+  padding: 0rem;
+  border-radius: 50%;
+}
+.color-picker {
+  // // height: 100%;
+  // display: flex;
+  // // width: 0;
+  // position: fixed;
+  // top: 2rem;
+
+  position: absolute;
+  top: 2rem;
+  left: 1.5rem;
+}
+.undo-redo {
+  position: fixed;
+  top: 3rem;
+  right: 3rem;
+}

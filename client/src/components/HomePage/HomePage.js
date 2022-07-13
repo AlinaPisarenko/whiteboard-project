@@ -3,11 +3,10 @@ import Typed from "react-typed";
 import Signup from "../LoginSignup/Signup";
 import Login from "../LoginSignup/Login";
 
-export default function HomePage({ onLogin }) {
+export default function HomePage({ onLogin, allUsers }) {
   const [homeDisplay, setHomeDisplay] = useState("none");
   const el = document.querySelector(".homepage__page-title");
   const handleOpenLogIn = (e) => {
-    // el.classList.toggle("moved");
     setHomeDisplay("login");
   };
 

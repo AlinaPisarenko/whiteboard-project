@@ -1,10 +1,11 @@
 class UsersController < ApplicationController
-      skip_before_action :authorize, only: :create
+      skip_before_action :authorize
+     
 
 def index  
-render json: User.where(team_id: @current_user.team_id), status: :ok
+render json: User.all, status: :ok
 end
-
+# render json: User.where(team_id: @current_user.team_id), status: :ok
 
     def create 
         user = User.create!(user_params)

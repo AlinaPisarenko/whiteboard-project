@@ -2,12 +2,15 @@ import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import EachProject from "../EachProject/EachProject";
 import Whiteboard from "../Whiteboard/Whiteboard";
+import map from "lodash/map";
+import range from "lodash/range";
 
 export default function UserPage({
   user,
   setUser,
   displayScreen,
   setDisplayedProject,
+  setDisplayScreen,
   allProjects,
   allUsers,
 }) {
@@ -27,6 +30,7 @@ export default function UserPage({
   const mapProjects = projects.map((el) => {
     return (
       <EachProject
+        setDisplayScreen={setDisplayScreen}
         key={el.id}
         project={el}
         setDisplayedProject={setDisplayedProject}
@@ -66,13 +70,31 @@ export default function UserPage({
   //   console.log(updatedProject);
   // };
 
-  if (!allUsers) return "loading";
-
+  // if (!allUsers) return "loading";
+  console.log(allUsers);
   return (
     <div className="userpage">
       {displayScreen === "projects" ? (
         <div className="user-projects">
-          {!projects ? "loading" : mapProjects}
+          {!projects ? (
+            "loading"
+          ) : (
+            <>
+              <h2 className="all-prj">My Projects</h2>
+              <div
+                className="carousel"
+                style={{
+                  marginTop: "1rem",
+                  width: "93%",
+                  overflow: "auto",
+                  display: "flex",
+                  height: "50rem",
+                }}
+              >
+                {map(range(1), (_) => mapProjects)}
+              </div>
+            </>
+          )}
         </div>
       ) : (
         <>
@@ -97,40 +119,45 @@ export default function UserPage({
             <h2 className="user-name">{name}</h2>
           </div>
           <h2 className="all-users__team-info">Your Team</h2>
-          <div className="all-users">
-            {allUsers.map((el) => {
-              return (
-                <div className="each-user">
-                  <div className="each-user__img-wrap "></div>
-                  <img
-                    src={el.profile_img}
-                    className="each-user__profile-img"
-                  />
 
-                  <div className="each-user__info">
-                    <h2 className="each-user__name"> {el.name}</h2>
-                    <p className="each-user__project-count">
-                      {" "}
-                      Projects created: {el.projects.length}
-                    </p>
-                  </div>
+          {!allUsers ? (
+            "loading"
+          ) : (
+            <div className="all-users">
+              {allUsers.map((el) => {
+                return (
+                  <div className="each-user">
+                    <div className="each-user__img-wrap "></div>
+                    <img
+                      src={el.profile_img}
+                      className="each-user__profile-img"
+                    />
 
-                  {/* {displayScreen === "add-new" ? ( */}
-                  {/* <button
+                    <div className="each-user__info">
+                      <h2 className="each-user__name"> {el.name}</h2>
+                      <p className="each-user__project-count">
+                        {" "}
+                        Projects created: {el.projects.length}
+                      </p>
+                    </div>
+
+                    {/* {displayScreen === "add-new" ? ( */}
+                    {/* <button
                   className="add-btn"
                   onClick={() => handleAddTeammate(el)}
                 >
                   +
                 </button> */}
-                  {/* ) : null} */}
-                </div>
-              );
-            })}
-            {/* <form onSubmit={handleCreateTeam} id="new-team-form">
+                    {/* ) : null} */}
+                  </div>
+                );
+              })}
+              {/* <form onSubmit={handleCreateTeam} id="new-team-form">
             <input type="text" name="name" placeholder="Name your team"></input>
             <button>Create team</button>
           </form> */}
-          </div>
+            </div>
+          )}
         </div>
       )}
 

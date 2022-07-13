@@ -1,23 +1,41 @@
-import React from "react";
-import { useRef, useState, useEffect, useLayoutEffect } from "react";
+import React, {
+  useCallback,
+  useRef,
+  useState,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+} from "react";
+// import { ColorPicker, ColorFormats } from "react-canvas-color-picker";
 import rough from "roughjs/bundled/rough.cjs.js";
 import canvasToImage from "canvas-to-image";
-// import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import getStroke from "perfect-freehand";
+import ColorPalette from "../ColorPalette/ColorPalette";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleLeft, faCircleRight } from "@fortawesome/free-solid-svg-icons";
 
 const generator = rough.generator();
 
-const createElement = (id, x1, y1, x2, y2, type) => {
+const createElement = (id, x1, y1, x2, y2, type, pickedColor) => {
   switch (type) {
     case "line":
     case "rectangle":
       const roughElement =
         type === "line"
-          ? generator.line(x1, y1, x2, y2, { stroke: "white" })
-          : generator.rectangle(x1, y1, x2 - x1, y2 - y1, { stroke: "white" });
+          ? generator.line(x1, y1, x2, y2, { stroke: "white", strokeWidth: 3 })
+          : generator.rectangle(x1, y1, x2 - x1, y2 - y1, {
+              stroke: "white",
+              strokeWidth: 3,
+            });
       return { id, x1, y1, x2, y2, type, roughElement };
     case "pencil":
-      return { id, type, points: [{ x: x1, y: y1 }] };
+      return {
+        id,
+        type,
+        points: [{ x: x1, y: y1 }],
+        fillStyle: { color: pickedColor },
+      };
     case "text":
       return { id, type, x1, y1, x2, y2, text: " " };
     default:
@@ -37,6 +55,7 @@ const onLine = (x1, y1, x2, y2, x, y, maxDistance = 1) => {
   return Math.abs(offset) < maxDistance ? "inside" : null;
 };
 
+//checking if mouse click is within element
 const positionWithinElement = (x, y, element) => {
   const { type, x1, x2, y1, y2 } = element;
   switch (type) {
@@ -80,6 +99,7 @@ const getElementAtPosition = (x, y, elements) => {
     .find((element) => element.position !== null);
 };
 
+//function that finds adjusting coordinates for resizing element
 const adjustElementCoordinates = (element) => {
   const { type, x1, y1, x2, y2 } = element;
   if (type === "rectangle") {
@@ -130,7 +150,8 @@ const resizedCoordinates = (clientX, clientY, position, coordinates) => {
   }
 };
 
-const useHistory = (initialState) => {
+//saving every change for undo/redo functionality
+const useHistoryDraw = (initialState) => {
   const [index, setIndex] = useState(0);
   const [history, setHistory] = useState([initialState]);
 
@@ -155,6 +176,7 @@ const useHistory = (initialState) => {
   return [history[index], setState, undo, redo];
 };
 
+//svg path for freehand writing
 const getSvgPathFromStroke = (stroke) => {
   if (!stroke.length) return "";
 
@@ -170,23 +192,30 @@ const getSvgPathFromStroke = (stroke) => {
   d.push("Z");
   return d.join(" ");
 };
-
-const drawElement = (roughCanvas, context, element) => {
+//function that handle drawing of each element
+const drawElement = (roughCanvas, context, element, pickedColor) => {
   switch (element.type) {
     case "line":
     case "rectangle":
       roughCanvas.draw(element.roughElement);
       break;
     case "pencil":
-      const stroke = getSvgPathFromStroke(getStroke(element.points));
-      context.fillStyle = "White";
-      context.lineWidth = 1;
+      const stroke = getSvgPathFromStroke(
+        getStroke(element.points, {
+          size: 8,
+          thinning: 0.5,
+          smoothing: 0.5,
+        })
+      );
       context.fill(new Path2D(stroke));
+      context.fillStyle = pickedColor;
+      context.lineWidth = 1;
+
       break;
     case "text":
       context.textBaseline = "top";
       context.font = "24px sans-serif";
-      context.fillStyle = "White";
+      context.fillStyle = pickedColor;
       context.fillText(element.text, element.x1, element.y1);
       break;
     default:
@@ -205,25 +234,41 @@ export default function Whiteboard({
   setProjects,
 }) {
   const canvasRef = useRef();
-  const [elements, setElements, undo, redo] = useHistory([]);
+  const [elements, setElements, undo, redo] = useHistoryDraw([]);
   const [action, setAction] = useState("none");
   const [tool, setTool] = useState("text");
   const [selectedElement, setSelectedElement] = useState(null);
   const [canvasImg, setCanvasImg] = useState();
   const history = useHistory();
   const textAreaRef = useRef();
+  const [color, setColor] = React.useState({ r: 255, g: 255, b: 255, a: 1 });
+
+  // const [color, setColor] = useState({ r: 255, g: 255, b: 255, a: 1 });
+  // const colorPickerRef = useRef();
+  // const formats = useState("rgba");
+
   // console.log(canvasImg);
   // console.log("user", user);
   // console.log(window.location.pathname);
   // console.log(displayedProject);
+
+  // const handleChange = (event) => {
+  //   console.log(event);
+  //   // setColor((state) => ({ ...state, ...event.colors.rgba }));
+  // };
+
+  const pickedColor = `rgba(${color.r},
+      ${color.g},
+      ${color.b},
+      ${color.a})`;
+
   useLayoutEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
-    //  context.clearRect(0, 0, canvas.width, canvas.height);
     context.clearRect(0, 0, canvas.width, canvas.height);
 
     if (!displayedProject) {
-      context.fillStyle = "#2c2f48";
+      context.fillStyle = "#17213c";
     } else {
       let image = new Image();
       image.src = displayedProject.whiteboard;
@@ -237,8 +282,9 @@ export default function Whiteboard({
     const roughCanvas = rough.canvas(canvas);
     elements.forEach((element) => {
       if (action === "writing" && selectedElement.id === element.id) return;
-      drawElement(roughCanvas, context, element);
+      drawElement(roughCanvas, context, element, pickedColor);
     });
+    setCanvasImg(canvas);
   }, [elements, action, selectedElement]);
 
   //adding undo/redo on ctrl z/shift
@@ -268,6 +314,7 @@ export default function Whiteboard({
     }
   }, [action, selectedElement]);
 
+  //updating element(moving, resizing)
   const updateElement = (id, x1, y1, x2, y2, type, options) => {
     const elementsCopy = [...elements];
 
@@ -300,6 +347,7 @@ export default function Whiteboard({
     setElements(elementsCopy, true);
   };
 
+  //function handles mouse down effect and checks what tool is selected
   const handleMouseDown = (event) => {
     if (action === "writing") return;
 
@@ -332,7 +380,8 @@ export default function Whiteboard({
         clientY,
         clientX,
         clientY,
-        tool
+        tool,
+        pickedColor
       );
       setElements((prevState) => [...prevState, element]);
       setSelectedElement(element);
@@ -465,7 +514,7 @@ export default function Whiteboard({
         let newProject = await response.json();
         onAddProject(newProject);
         formInput.reset();
-        // history.push(`/me`);
+        history.push(`/me`);
       }
     } else {
       let response = await fetch(`/projects/${displayedProject.id}`, {
@@ -476,57 +525,59 @@ export default function Whiteboard({
       if (response.ok) {
         let updatedProject = await response.json();
         formInput.reset();
+
+        onUpdateProject(updatedProject);
         history.push(`/me`);
-        // onUpdateProject(updatedProject);
       }
     }
   };
 
   return (
-    <div>
-      <div className="tool-box">
-        <input
-          className="tool"
-          type="radio"
-          id="selection"
-          checked={tool === "selection"}
-          onChange={() => setTool("selection")}
-        />
-        <label htmlFor="selection">Select</label>
+    <>
+      <div>
+        <div className="tool-box">
+          <input
+            className="tool"
+            type="radio"
+            id="selection"
+            checked={tool === "selection"}
+            onChange={() => setTool("selection")}
+          />
+          <label htmlFor="selection">Select</label>
 
-        <input
-          className="tool"
-          type="radio"
-          id="line"
-          checked={tool === "line"}
-          onChange={() => setTool("line")}
-        />
-        <label htmlFor="line">Line</label>
+          <input
+            className="tool"
+            type="radio"
+            id="line"
+            checked={tool === "line"}
+            onChange={() => setTool("line")}
+          />
+          <label htmlFor="line">Line</label>
 
-        <input
-          className="tool"
-          type="radio"
-          id="rectangle"
-          checked={tool === "rectangle"}
-          onChange={() => setTool("rectangle")}
-        />
-        <label htmlFor="rectangle">Rectangle</label>
-        <input
-          type="radio"
-          id="text"
-          checked={tool === "text"}
-          onChange={() => setTool("text")}
-        />
-        <label htmlFor="text">Text</label>
-        <input
-          type="radio"
-          id="pencil"
-          checked={tool === "pencil"}
-          onChange={() => setTool("pencil")}
-        />
-        <label htmlFor="pencil">Pencil</label>
+          <input
+            className="tool"
+            type="radio"
+            id="rectangle"
+            checked={tool === "rectangle"}
+            onChange={() => setTool("rectangle")}
+          />
+          <label htmlFor="rectangle">Rectangle</label>
+          <input
+            type="radio"
+            id="text"
+            checked={tool === "text"}
+            onChange={() => setTool("text")}
+          />
+          <label htmlFor="text">Text</label>
+          <input
+            type="radio"
+            id="pencil"
+            checked={tool === "pencil"}
+            onChange={() => setTool("pencil")}
+          />
+          <label htmlFor="pencil">Pencil</label>
 
-        {/* <input
+          {/* <input
           type="radio"
           id="circle"
           checked={tool === "circle"}
@@ -540,43 +591,39 @@ export default function Whiteboard({
           onChange={() => setTool("ellipse")}
         />
         <label htmlFor="ellipse">Ellipse</label> */}
-      </div>
-      <div style={{ position: "fixed", bottom: 0, padding: 10 }}>
-        <button onClick={undo}>Undo</button>
-        <button onClick={redo}>Redo</button>
-      </div>
-      {action === "writing" ? (
-        <textarea
-          ref={textAreaRef}
-          onBlur={handleBlur}
-          style={{
-            position: "fixed",
-            top: selectedElement.y1 - 2,
-            left: selectedElement.x1,
-            font: "24px sans-serif",
-            // margin: 0,
-            // padding: 0,
-            // border: 0,
-            // outline: 0,
-            // resize: "auto",
-            // overflow: "hidden",
+        </div>
+        <div className="undo-redo">
+          <button onClick={undo}>
+            {" "}
+            <FontAwesomeIcon icon={faCircleLeft} />
+          </button>
+          <button onClick={redo}>
+            {" "}
+            <FontAwesomeIcon icon={faCircleRight} />
+          </button>
+        </div>
+        {action === "writing" ? (
+          <textarea
+            ref={textAreaRef}
+            onBlur={handleBlur}
+            style={{
+              position: "fixed",
+              top: selectedElement.y1 - 2,
+              left: selectedElement.x1,
+              font: "24px sans-serif",
+              // margin: 0,
+              // padding: 0,
+              // border: 0,
+              // outline: 0,
+              // resize: "auto",
+              // overflow: "hidden",
 
-            // background: "transparent",
-          }}
-        />
-      ) : null}
-      <canvas
-        id="canvas"
-        width={window.innerWidth}
-        height={window.innerHeight}
-        onMouseDown={handleMouseDown}
-        onMouseUp={handleMouseUp}
-        onMouseMove={handleMouseMove}
-        ref={canvasRef}
-      >
-        canvas
-      </canvas>
-      {/* <form
+              // background: "transparent",
+            }}
+          />
+        ) : null}
+
+        {/* <form
         className="new-project-form"
         id="new-project-form"
         onSubmit={handleSubmit}
@@ -597,44 +644,67 @@ export default function Whiteboard({
           {!displayedProject ? "Create" : "Update"}
         </button>
       </form> */}
-      <form
-        className="login__form"
-        id="new-project-form"
-        onSubmit={handleSubmit}
-      >
-        <div className="login__form__group">
-          <input
-            type="text"
-            className="login__form__input"
-            id="title"
-            name="title"
-            required=" "
-          />
-          <label htmlFor="title" className="login__form__label">
-            Title
-          </label>
-        </div>
-        <div className="login__form__group">
-          <input
-            type="password"
-            className="login__form__input"
-            id="description"
-            required=" "
-            name="description"
-          />
-          <label htmlFor="description" className="login__form__label">
-            Description
-          </label>
-        </div>
+        <form
+          className="login__form new-project-form"
+          id="new-project-form"
+          onSubmit={handleSubmit}
+        >
+          <div className="login__form__group">
+            <input
+              type="text"
+              className="login__form__input"
+              id="title"
+              name="title"
+              required=" "
+            />
+            <label htmlFor="title" className="login__form__label">
+              Title
+            </label>
+          </div>
+          <div className="login__form__group">
+            <input
+              type="text"
+              className="login__form__input"
+              id="description"
+              required=" "
+              name="description"
+            />
+            <label htmlFor="description" className="login__form__label">
+              Description
+            </label>
+          </div>
 
-        <div className="login__form__group">
-          <button className="btn login__btn-text">
-            {" "}
-            {!displayedProject ? "Create" : "Update"}
-          </button>
+          <div className="login__form__group">
+            <button className="btn login__btn-text" id="create-project-btn">
+              +
+            </button>
+          </div>
+        </form>
+
+        {/* <ColorPicker
+          spectrum="hsva"
+          formats="rgba"
+          initialColor="r: 255, g: 255, b: 255, a: 1"
+          onPanStart={handleChange}
+          onPan={handleChange}
+          // ref={colorPickerRef}
+        /> */}
+
+        <canvas
+          id="canvas"
+          width={window.innerWidth}
+          height={window.innerHeight}
+          onMouseDown={handleMouseDown}
+          onMouseUp={handleMouseUp}
+          onMouseMove={handleMouseMove}
+          ref={canvasRef}
+        >
+          canvas
+        </canvas>
+        <div className="color-picker">
+          <ColorPalette color={color} setColor={setColor} />
         </div>
-      </form>
-      ;
-    </div>
+      </div>
+    </>
   );
 }
