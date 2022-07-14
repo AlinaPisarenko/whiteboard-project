@@ -93,28 +93,31 @@
   // position: fixed;
   // top: 2rem;
   width: 24rem;
-  position: absolute;
-  top: 0rem;
-  left: 0rem;
-}
-.undo-redo {
-  z-index: 1000;
   position: fixed;
-  top: 3rem;
-  right: 3rem;
+  top: 1rem;
+  right: 1rem;
+}
 
-  &__btn {
-    font-size: 3rem;
-    color: rgba(255, 255, 255, 0.5);
-    opacity: 0.5;
-    margin: 0.6rem;
-    background: transparent;
-    border: none;
-    transition: all 0.2s ease-in-out;
-    &:hover {
-      transform: scale(1.2);
-      cursor: pointer;
-      opacity: 1;
-    }
+.btn-w {
+  top: 2rem;
+  z-index: 1000;
+  position: absolute;
+  font-size: 4rem;
+  color: rgba(255, 255, 255, 0.5);
+  opacity: 0.5;
+  margin: 0.6rem;
+  background: transparent;
+  border: none;
+  transition: all 0.2s ease-in-out;
+  &__right {
+    right: 10rem;
+  }
+  &__left {
+    right: 36rem;
+  }
+  &:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+    opacity: 1;
   }
 }

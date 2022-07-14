@@ -610,16 +610,16 @@ export default function Whiteboard({
         />
         <label htmlFor="ellipse">Ellipse</label> */}
         </div>
-        <div className="undo-redo">
-          <button className="undo-redo__btn" onClick={undo}>
-            {" "}
-            <FontAwesomeIcon icon={faCircleLeft} />
-          </button>
-          <button className="undo-redo__btn" onClick={redo}>
-            {" "}
-            <FontAwesomeIcon icon={faCircleRight} />
-          </button>
-        </div>
+
+        <button className="btn-w btn-w__left" onClick={undo}>
+          {" "}
+          <FontAwesomeIcon icon={faCircleLeft} />
+        </button>
+        <button className="btn-w btn-w__right" onClick={redo}>
+          {" "}
+          <FontAwesomeIcon icon={faCircleRight} />
+        </button>
+
         {action === "writing" ? (
           <textarea
             ref={textAreaRef}

@@ -143,7 +143,7 @@ export default function UserPage({
           <h2 className="all-users__team-info">Your Team</h2>
 
           {!allUsers ? (
-            "loading"
+            <span class="loader"></span>
           ) : (
             <div className="all-users">
               {allUsers.map((el) => {
