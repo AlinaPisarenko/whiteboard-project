@@ -28,13 +28,14 @@ export default function EachProject({
     <div>
       <Paper
         style={{
-          margin: "1.3rem",
-          height: "59vh",
+          margin: "1.5rem",
+          height: "33rem",
           borderRadius: "6rem",
-          width: "76vh",
+          width: "45rem",
           background: "transparent",
           color: "white",
           border: "none",
+          marginTop: "4rem",
         }}
       >
         <div className="project-container-personal">
@@ -56,7 +57,7 @@ export default function EachProject({
           </div>
           <a
             href="#"
-            className="project-container__delete-btn"
+            className="project-container__delete-btn delete-personal"
             onClick={handleDelete}
           >
             &times;

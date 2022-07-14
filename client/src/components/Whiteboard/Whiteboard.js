@@ -13,7 +13,13 @@ import { useHistory } from "react-router-dom";
 import getStroke from "perfect-freehand";
 import ColorPalette from "../ColorPalette/ColorPalette";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleLeft, faCircleRight } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCircleLeft,
+  faCircleRight,
+  faPencil,
+  faArrowPointer,
+  faSquare,
+} from "@fortawesome/free-solid-svg-icons";
 
 const generator = rough.generator();
 
@@ -534,48 +540,60 @@ export default function Whiteboard({
 
   return (
     <>
-      <div>
+      <div className="whiteboard-container">
         <div className="tool-box">
           <input
-            className="tool"
+            className="tool tool-box__input"
             type="radio"
             id="selection"
             checked={tool === "selection"}
             onChange={() => setTool("selection")}
           />
-          <label htmlFor="selection">Select</label>
+          <label htmlFor="selection" className="tool tool-box__label">
+            <FontAwesomeIcon icon={faArrowPointer} />
+          </label>
 
           <input
-            className="tool"
+            className="tool tool-box__input"
             type="radio"
             id="line"
             checked={tool === "line"}
             onChange={() => setTool("line")}
           />
-          <label htmlFor="line">Line</label>
+          <label htmlFor="line" className="tool tool-box__label">
+            /
+          </label>
 
           <input
-            className="tool"
+            className="tool tool-box__input"
             type="radio"
             id="rectangle"
             checked={tool === "rectangle"}
             onChange={() => setTool("rectangle")}
           />
-          <label htmlFor="rectangle">Rectangle</label>
+          <label htmlFor="rectangle" className="tool tool-box__label">
+            <FontAwesomeIcon icon={faSquare} />
+          </label>
           <input
+            className="tool tool-box__input"
             type="radio"
             id="text"
             checked={tool === "text"}
             onChange={() => setTool("text")}
           />
-          <label htmlFor="text">Text</label>
+          <label htmlFor="text" className="tool tool-box__label">
+            T
+          </label>
           <input
+            className="tool tool-box__input"
             type="radio"
             id="pencil"
             checked={tool === "pencil"}
             onChange={() => setTool("pencil")}
           />
-          <label htmlFor="pencil">Pencil</label>
+          <label htmlFor="pencil" className="tool tool-box__label">
+            <FontAwesomeIcon icon={faPencil} />
+          </label>
 
           {/* <input
           type="radio"
@@ -593,11 +611,11 @@ export default function Whiteboard({
         <label htmlFor="ellipse">Ellipse</label> */}
         </div>
         <div className="undo-redo">
-          <button onClick={undo}>
+          <button className="undo-redo__btn" onClick={undo}>
             {" "}
             <FontAwesomeIcon icon={faCircleLeft} />
           </button>
-          <button onClick={redo}>
+          <button className="undo-redo__btn" onClick={redo}>
             {" "}
             <FontAwesomeIcon icon={faCircleRight} />
           </button>

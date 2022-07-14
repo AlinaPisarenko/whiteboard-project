@@ -39,11 +39,7 @@ export default function NavBar({ setUser, setDisplayScreen, displayScreen }) {
   }
 
   return (
-    <div
-      className={
-        displayScreen === "add-new" ? "navigation-create-new" : "navigation"
-      }
-    >
+    <div className="navigation">
       <img className="nav-bar-new" src={logo} />
       <ul
         className="menu-bar"

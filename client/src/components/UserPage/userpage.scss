@@ -1,5 +1,5 @@
 .userpage {
-  height: 100vh;
+  max-height: 100vh;
   position: relative;
   //   display: grid;
   //   grid-template-columns: 70% 30%;
@@ -44,42 +44,33 @@
   clip-path: url(#blob);
   width: 18rem;
   height: 18rem;
-
   margin-top: -19.9rem;
   margin-left: 1.25rem;
 
   transform: scale(1.2);
 }
-.all-users-profile-img {
-}
+
 .all-prj {
-  position: relative;
-  left: -32rem;
+  position: absolute;
+  left: 9rem;
+  top: 9rem;
   font-size: 3rem;
   font-weight: 400;
   // color: rgba(255, 255, 255, 0.5);
 }
 
 .user-projects {
-  //   padding-left: 5vh;
   position: absolute;
   left: 2rem;
-  top: 5rem;
-  width: 69.7vw;
+  top: 3rem;
+  width: 70.9vw;
   display: flex;
   flex-wrap: wrap;
 
   justify-content: space-evenly;
-  //   display: grid;
-  //   grid-template-columns: 45% 45%;
-  //   grid-template-rows: 26rem;
-  //   column-gap: 3rem;
-  //   flex-wrap: wrap;
   margin: 0 auto;
 
   padding-top: 2rem;
-
-  //   height: 95vh;
 }
 .whiteboard {
   position: absolute;
@@ -96,8 +87,6 @@
   width: 30vw;
   height: 100vh;
 }
-.add-btn {
-}
 
 .all-users {
   height: 46vh;
@@ -107,7 +96,7 @@
   }
   &__team-info {
     padding-left: 2rem;
-    padding-bottom: 1rem;
+
     font-size: 1.75rem;
     color: rgba(255, 255, 255, 0.5);
 
@@ -183,5 +172,25 @@
   overflow-x: scroll;
   &::-webkit-scrollbar {
     display: none;
+  }
+}
+.search-bar {
+  position: absolute;
+  z-index: 10000;
+  top: 7%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 72rem;
+
+  &__input {
+    border-radius: 4rem;
+
+    &:focus {
+      border: none;
+      // border-bottom: 3px solid;
+
+      // border-image-slice: 1;
+      // border-image-source: linear-gradient(to left, #fff45be6, #e72da3);
+    }
   }
 }

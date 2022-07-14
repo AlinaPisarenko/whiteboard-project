@@ -1,17 +1,38 @@
 .all-projects {
   transition: all 0.6s ease-in-out;
   position: absolute;
-  left: 0;
-  top: 0;
-  width: 70vw;
-  height: 100vh;
+  left: 5%;
+  top: 8.5rem;
+  width: 64vw;
+  height: 88vh;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
   margin: 0 auto;
-  padding-top: 10rem;
+  padding-top: 1rem;
+
   overflow-y: scroll;
   &::-webkit-scrollbar {
     display: none;
+  }
+}
+.all-prj-search {
+  position: absolute;
+  z-index: 10000;
+  top: 7%;
+  left: 37.5%;
+  transform: translate(-50%, -50%);
+  width: 68rem;
+
+  &__input {
+    border-radius: 4rem;
+
+    &:focus {
+      border: none;
+      // border-bottom: 3px solid;
+
+      // border-image-slice: 1;
+      // border-image-source: linear-gradient(to left, #fff45be6, #e72da3);
+    }
   }
 }

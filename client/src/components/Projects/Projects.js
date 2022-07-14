@@ -7,6 +7,7 @@ export default function Projects({ user, allUsers }) {
   const [modal, setModal] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
   const { id, name, profile_img } = user;
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     fetch("/projects")
@@ -19,9 +20,16 @@ export default function Projects({ user, allUsers }) {
     console.log(modal);
   };
 
-  if (!allProjects) return <p>loading...</p>;
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  };
 
-  const mapProjects = allProjects.map((el) => {
+  if (!allProjects) return <p>loading...</p>;
+  const filteredProjects = allProjects.filter((el) =>
+    el.title.toLowerCase().includes(search.toLowerCase())
+  );
+
+  const mapProjects = filteredProjects.map((el) => {
     return (
       <>
         <SingleProject
@@ -36,6 +44,16 @@ export default function Projects({ user, allUsers }) {
   if (!allUsers) return "loading";
   return (
     <>
+      <div className="login__form__group  all-prj-search">
+        <input
+          id="search"
+          type="text"
+          onChange={handleSearch}
+          value={search}
+          className="login__form__input search-bar__input"
+          placeholder="Search"
+        />
+      </div>
       {modal ? (
         <EachProjectModal
           modal={modal}

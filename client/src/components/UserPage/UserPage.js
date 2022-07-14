@@ -4,6 +4,8 @@ import EachProject from "../EachProject/EachProject";
 import Whiteboard from "../Whiteboard/Whiteboard";
 import map from "lodash/map";
 import range from "lodash/range";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 export default function UserPage({
   user,
@@ -17,6 +19,7 @@ export default function UserPage({
   const [projects, setProjects] = useState(user.projects);
   // const [allUsers, setAllUsers] = useState(null);
   const [team, setTeam] = useState([]);
+  const [search, setSearch] = useState("");
   const history = useHistory();
 
   const { id, name, profile_img } = user;
@@ -27,7 +30,14 @@ export default function UserPage({
   //     .then((data) => setAllUsers(data));
   // }, []);
 
-  const mapProjects = projects.map((el) => {
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  };
+  const filteredProjects = projects.filter((el) =>
+    el.title.toLowerCase().includes(search.toLowerCase())
+  );
+
+  const mapProjects = filteredProjects.map((el) => {
     return (
       <EachProject
         setDisplayScreen={setDisplayScreen}
@@ -76,6 +86,18 @@ export default function UserPage({
     <div className="userpage">
       {displayScreen === "projects" ? (
         <div className="user-projects">
+          <div className="login__form__group search-bar">
+            <input
+              id="search"
+              type="text"
+              onChange={handleSearch}
+              value={search}
+              className="login__form__input search-bar__input"
+              placeholder="Search"
+            />
+
+            {/* <FontAwesomeIcon icon={faMagnifyingGlass} /> */}
+          </div>
           {!projects ? (
             "loading"
           ) : (
@@ -84,11 +106,11 @@ export default function UserPage({
               <div
                 className="carousel"
                 style={{
-                  marginTop: "1rem",
+                  marginTop: "10rem",
                   width: "93%",
                   overflow: "auto",
                   display: "flex",
-                  height: "50rem",
+                  height: "40rem",
                 }}
               >
                 {map(range(1), (_) => mapProjects)}

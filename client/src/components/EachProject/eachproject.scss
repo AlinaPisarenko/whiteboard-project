@@ -55,13 +55,13 @@
   color: #fff;
   // cursor: pointer;
   border-radius: 6rem;
-  height: 35rem;
+  height: 33rem;
   width: 45rem;
   margin-bottom: 5rem;
   position: relative;
 
   &:before {
-    height: 35.4rem;
+    height: 33.4rem;
     width: 45.4rem;
 
     content: "";
@@ -82,7 +82,7 @@
   box-sizing: border-box;
   box-shadow: 0 1rem 2rem rgba(#000000, 0.3);
   // border: solid 1px #6d466e;
-  height: 35rem;
+  height: 33rem;
   width: 45rem;
   background-color: #f386f7;
   overflow: hidden;
@@ -95,7 +95,7 @@
 .svg-element-personal {
   position: absolute;
   left: 7.5rem;
-  top: 16.3rem;
+  top: 14.3rem;
   transform: scale(1.51);
 
   // overflow: hidden;
@@ -119,4 +119,8 @@ path {
   position: absolute;
   top: 23rem;
   left: 2rem;
+}
+.delete-personal {
+  font-size: 3rem;
+  right: 3rem;
 }

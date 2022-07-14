@@ -59,7 +59,7 @@
   .login__greeting {
     position: absolute;
     right: 17rem;
-    top: 7rem;
+    top: 12rem;
     font-family: "Montserrat Alternates", sans-serif;
     font-weight: 400;
     font-size: 3rem;
@@ -70,7 +70,7 @@
   .login__form {
     position: absolute;
     right: 5.5vw;
-    top: 25vh;
+    top: 32vh;
     width: 30rem;
     position: absolute; }
     .login__form__label {
@@ -140,7 +140,7 @@
   width: 96%; }
 
 .userpage {
-  height: 100vh;
+  max-height: 100vh;
   position: relative; }
 
 .current-user {
@@ -179,16 +179,17 @@
   transform: scale(1.2); }
 
 .all-prj {
-  position: relative;
-  left: -32rem;
+  position: absolute;
+  left: 9rem;
+  top: 9rem;
   font-size: 3rem;
   font-weight: 400; }
 
 .user-projects {
   position: absolute;
   left: 2rem;
-  top: 5rem;
-  width: 69.7vw;
+  top: 3rem;
+  width: 70.9vw;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
@@ -217,7 +218,6 @@
     display: none; }
   .all-users__team-info {
     padding-left: 2rem;
-    padding-bottom: 1rem;
     font-size: 1.75rem;
     color: rgba(255, 255, 255, 0.5); }
 
@@ -260,6 +260,18 @@
   overflow-x: scroll; }
   .carousel::-webkit-scrollbar {
     display: none; }
+
+.search-bar {
+  position: absolute;
+  z-index: 10000;
+  top: 7%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 72rem; }
+  .search-bar__input {
+    border-radius: 4rem; }
+    .search-bar__input:focus {
+      border: none; }
 
 *,
 *::after,
@@ -367,12 +379,12 @@ body {
 .each-project-personal {
   color: #fff;
   border-radius: 6rem;
-  height: 35rem;
+  height: 33rem;
   width: 45rem;
   margin-bottom: 5rem;
   position: relative; }
   .each-project-personal:before {
-    height: 35.4rem;
+    height: 33.4rem;
     width: 45.4rem;
     content: "";
     position: absolute;
@@ -386,7 +398,7 @@ body {
 .project-img-personal {
   box-sizing: border-box;
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.3);
-  height: 35rem;
+  height: 33rem;
   width: 45rem;
   background-color: #f386f7;
   overflow: hidden;
@@ -396,7 +408,7 @@ body {
 .svg-element-personal {
   position: absolute;
   left: 7.5rem;
-  top: 16.3rem;
+  top: 14.3rem;
   transform: scale(1.51); }
 
 path {
@@ -418,19 +430,46 @@ path {
   top: 23rem;
   left: 2rem; }
 
+.delete-personal {
+  font-size: 3rem;
+  right: 3rem; }
+
 #canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
   height: 100vh;
   width: 100vw;
   padding-top: -3rem; }
 
 .tool-box {
-  z-index: 10000;
+  z-index: 1000;
+  border-radius: 5rem;
+  height: fit-content;
+  display: inline-flex;
+  background-color: rgba(255, 255, 255, 0.2);
+  align-items: center;
+  padding: 0 2rem;
+  margin: 0 auto;
   position: fixed;
-  top: 60vh;
-  left: 6vh;
-  color: white; }
+  top: 4%;
+  left: 50%;
+  transform: translate(-50%, 0%); }
+  .tool-box__input {
+    display: none; }
+  .tool-box__label {
+    opacity: 0.5;
+    transition: all 0.2s ease-in-out;
+    font-size: 2rem;
+    font-weight: 700;
+    padding: 0.5rem 1rem; }
+    .tool-box__label:hover {
+      cursor: pointer;
+      transform: scale(1.2);
+      opacity: 1; }
 
 #new-project-form {
+  z-index: 100000;
   position: fixed;
   top: 85vh;
   left: 50%;
@@ -452,30 +491,56 @@ path {
   border-radius: 50%; }
 
 .color-picker {
+  width: 24rem;
   position: absolute;
-  top: 2rem;
-  left: 1.5rem; }
+  top: 0rem;
+  left: 0rem; }
 
 .undo-redo {
+  z-index: 1000;
   position: fixed;
   top: 3rem;
   right: 3rem; }
+  .undo-redo__btn {
+    font-size: 3rem;
+    color: rgba(255, 255, 255, 0.5);
+    opacity: 0.5;
+    margin: 0.6rem;
+    background: transparent;
+    border: none;
+    transition: all 0.2s ease-in-out; }
+    .undo-redo__btn:hover {
+      transform: scale(1.2);
+      cursor: pointer;
+      opacity: 1; }
 
 .all-projects {
   transition: all 0.6s ease-in-out;
   position: absolute;
-  left: 0;
-  top: 0;
-  width: 70vw;
-  height: 100vh;
+  left: 5%;
+  top: 8.5rem;
+  width: 64vw;
+  height: 88vh;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
   margin: 0 auto;
-  padding-top: 10rem;
+  padding-top: 1rem;
   overflow-y: scroll; }
   .all-projects::-webkit-scrollbar {
     display: none; }
+
+.all-prj-search {
+  position: absolute;
+  z-index: 10000;
+  top: 7%;
+  left: 37.5%;
+  transform: translate(-50%, -50%);
+  width: 68rem; }
+  .all-prj-search__input {
+    border-radius: 4rem; }
+    .all-prj-search__input:focus {
+      border: none; }
 
 .project-img {
   box-sizing: border-box;
