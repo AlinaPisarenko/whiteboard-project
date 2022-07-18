@@ -2,6 +2,7 @@ require 'faker'
 User.all.destroy_all
 Team.all.destroy_all
 Project.all.destroy_all
+Review.all.destroy_alldb
 
 
 # profile_img = [

@@ -5,7 +5,7 @@ import Login from "../LoginSignup/Login";
 
 export default function HomePage({ onLogin, allUsers }) {
   const [homeDisplay, setHomeDisplay] = useState("none");
-  const el = document.querySelector(".homepage__page-title");
+
   const handleOpenLogIn = (e) => {
     setHomeDisplay("login");
   };
@@ -51,8 +51,12 @@ export default function HomePage({ onLogin, allUsers }) {
         </div>
       ) : null}
 
-      {homeDisplay === "login" ? <Login onLogin={onLogin} /> : null}
-      {homeDisplay === "signup" ? <Signup onLogin={onLogin} /> : null}
+      {homeDisplay === "login" ? (
+        <Login onLogin={onLogin} setHomeDisplay={setHomeDisplay} />
+      ) : null}
+      {homeDisplay === "signup" ? (
+        <Signup onLogin={onLogin} setHomeDisplay={setHomeDisplay} />
+      ) : null}
     </div>
   );
 }

@@ -29,7 +29,6 @@ export default function NavBar({ setUser, setDisplayScreen, displayScreen }) {
   function handleViewAllProjects(e) {
     e.preventDefault();
     history.push(`/projects`);
-    setDisplayScreen("all-projects");
   }
 
   function handleViewProjects(e) {
@@ -41,14 +40,7 @@ export default function NavBar({ setUser, setDisplayScreen, displayScreen }) {
   return (
     <div className="navigation">
       <img className="nav-bar-new" src={logo} />
-      <ul
-        className="menu-bar"
-        // style={
-        //   displayScreen === "add-new"
-        //     ? { backgroundColor: "rgba(255, 255, 255, 0.4)" }
-        //     : null
-        // }
-      >
+      <ul className="menu-bar">
         {}
         <a href="#" className="nav-link" onClick={handleViewProjects}>
           <FontAwesomeIcon icon={faFolderClosed} />

@@ -9,6 +9,7 @@ export default function Review({
 }) {
   const { name, profile_img } = project.user;
 
+  //deleting review
   const handleDelete = () => {
     fetch(`/reviews/${review?.id}`, { method: "DELETE" });
     onDelete(review);

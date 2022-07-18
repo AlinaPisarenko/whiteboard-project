@@ -6,17 +6,13 @@ export default function SingleProject({
   handleOpenProject,
   setSelectedProject,
 }) {
-  const history = useHistory();
   const { id, description, title, whiteboard } = project;
   const { name, profile_img } = project.user;
-
-  const desc = description.substring(0, 100) + "...";
 
   const handleOpen = (e) => {
     e.preventDefault();
     setSelectedProject(project);
     handleOpenProject();
-    // history.push(`/projects/${id}`);
   };
 
   return (
@@ -26,17 +22,15 @@ export default function SingleProject({
 
         <svg className="svg-element" id={project.id}>
           <path
-            fill="#ff09ff"
-            fillOpacity="0.5"
+            fill="#f386f7"
+            fillOpacity="0.7"
             d="M 0 59 Q 1 3 52 22 Q 151 55 247 24 Q 300 0 300 59 L 300 100 Q 300 150 250 150 L 50 150 Q 0 150 0 100 Z"
           ></path>
         </svg>
 
         <h4 className="project-title title">{title}</h4>
-        <p className="project-description description">
-          {" "}
-          {description.length > 100 ? desc : description}{" "}
-        </p>
+        <p className="project-description description">Created by: {name}</p>
+
         <div className="img-wrap">
           <img src={profile_img} className="user-project-img"></img>
         </div>

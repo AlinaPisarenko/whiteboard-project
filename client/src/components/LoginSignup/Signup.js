@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
-export default function Signup({ onLogin }) {
+export default function Signup({ onLogin, setHomeDisplay }) {
   const [teams, setTeams] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -11,6 +11,7 @@ export default function Signup({ onLogin }) {
     }, 200);
   }, []);
 
+  //fetching data on all teams
   let history = useHistory();
   useEffect(() => {
     fetch("/teams").then((r) => {
@@ -20,9 +21,11 @@ export default function Signup({ onLogin }) {
     });
   }, []);
 
+  //function that handles signup
   const handleSignup = async (e) => {
     e.preventDefault();
     let form = new FormData(document.querySelector(`#signup-form`));
+
     let req = await fetch(`/signup`, {
       method: `POST`,
       body: form,
@@ -32,7 +35,7 @@ export default function Signup({ onLogin }) {
     history.push(`/me`);
   };
 
-  if (!teams) return "loading";
+  if (!teams) return "";
   return (
     <div className={loading ? "login" : "login timeout"}>
       <h2 className="login__greeting login__greeting__signup">Welcome!</h2>
@@ -142,6 +145,17 @@ export default function Signup({ onLogin }) {
         <div className="login__form__group">
           <button className="btn login__btn-text signup-btn">Sign up</button>
         </div>
+        <p className="login__form__alt">
+          Have an account already?{" "}
+          <a
+            className="login__form__alt__link"
+            href="#"
+            onClick={() => setHomeDisplay("login")}
+          >
+            Login
+          </a>{" "}
+          instead.
+        </p>
       </form>
     </div>
   );

@@ -1,15 +1,15 @@
 .all-projects {
   transition: all 0.6s ease-in-out;
   position: absolute;
-  left: 5%;
+  left: 6%;
   top: 8.5rem;
-  width: 64vw;
-  height: 88vh;
+  width: 60vw;
+  height: 84vh;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
   margin: 0 auto;
-  padding-top: 1rem;
+  padding-top: 2rem;
 
   overflow-y: scroll;
   &::-webkit-scrollbar {
@@ -20,9 +20,9 @@
   position: absolute;
   z-index: 10000;
   top: 7%;
-  left: 37.5%;
+  left: 36.5%;
   transform: translate(-50%, -50%);
-  width: 68rem;
+  width: 55%;
 
   &__input {
     border-radius: 4rem;

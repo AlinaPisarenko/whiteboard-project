@@ -1,6 +1,5 @@
 .each-review {
   display: flex;
-  align-items: center;
 
   &__img {
     height: 7rem;
@@ -17,19 +16,20 @@
     margin-left: 2rem;
   }
   &__content {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     font-weight: 200;
     margin-left: 2rem;
-    margin-right: 3rem;
-    width: 12vw;
-    overflow-x: hidden;
+    margin-right: 2rem;
+    width: 16rem;
+    overflow-wrap: break-word;
+    color: rgba(255, 255, 255, 0.5);
   }
 }
 #review-btn {
   opacity: 0.6;
   margin-top: 2rem;
-  margin-right: 0;
-  font-size: 2rem;
+  margin-right: -0;
+  font-size: 2.2rem;
   font-weight: 400;
   width: 3rem;
   height: 3rem;

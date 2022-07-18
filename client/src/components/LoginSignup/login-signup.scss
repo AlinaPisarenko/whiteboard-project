@@ -9,23 +9,22 @@
 
   &__greeting {
     position: absolute;
-    right: 17rem;
-    top: 12rem;
+    right: 19.5vw;
+    top: 15rem;
     font-family: "Montserrat Alternates", sans-serif;
     font-weight: 400;
-    font-size: 3rem;
+    font-size: 2rem;
     margin-bottom: 2rem;
     &__signup {
-      right: 27rem;
-      top: 8rem;
+      right: 25.4vw;
+      top: 16vh;
     }
   }
   &__form {
     position: absolute;
-    right: 5.5vw;
-    top: 32vh;
+    right: 7vw;
+    top: 33vh;
     width: 30rem;
-    position: absolute;
 
     &__label {
       position: relative;
@@ -34,8 +33,6 @@
       padding-left: 1rem;
       font-size: 1.6rem;
       font-weight: 400;
-      // margin-left: 2rem;
-      // margin-top: 0.7rem;
       display: block;
       transition: all 0.4s;
     }
@@ -76,9 +73,7 @@
         outline: none;
         box-shadow: 0 1rem 2rem rgba(black, 0.1);
         border-bottom: 3px solid;
-
         border-image-slice: 1;
-
         border-image-source: linear-gradient(to left, #fff45be6, #e72da3);
         &:invalid {
           border-bottom: 3px solid red;
@@ -87,6 +82,17 @@
 
       &::-webkit-input-placeholder {
         color: rgba(255, 255, 255, 0.6);
+      }
+    }
+    &__alt {
+      width: 95%;
+      color: rgba(255, 255, 255, 0.7);
+      text-align: center;
+      font-size: 1.4rem;
+      margin-top: -2rem;
+      &__link {
+        color: #fff;
+        text-decoration: none;
       }
     }
   }
@@ -103,16 +109,17 @@
   clip-path: polygon(60vw 0, 100% 0, 100% 100%, 65vw 100%);
 }
 .signup {
-  width: 30vw;
-  right: 3rem;
-  top: 25vh;
+  width: 32vw;
+  right: 2.5rem;
+  top: 24vh;
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 .dropdown {
-  width: 93%;
+  width: 100%;
 }
 
 .signup-btn {
-  width: 96%;
+  width: 100%;
 }

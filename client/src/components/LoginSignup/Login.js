@@ -1,7 +1,7 @@
 import { useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-export default function Login({ onLogin }) {
+export default function Login({ onLogin, setHomeDisplay }) {
   const history = useHistory();
   const [loading, setLoading] = useState(true);
 
@@ -11,6 +11,7 @@ export default function Login({ onLogin }) {
     }, 200);
   }, []);
 
+  //function that handles login
   const handleLogin = async (e) => {
     e.preventDefault();
     let form = new FormData(document.querySelector(`#signup-form`));
@@ -25,13 +26,13 @@ export default function Login({ onLogin }) {
       onLogin(user);
       history.push(`/me`);
     } else {
-      response.json().then((err) => console.log(err.errors));
+      response.json().then((err) => alert(err.errors));
     }
   };
 
   return (
     <div className={loading ? "login" : "login timeout "}>
-      <h2 className="login__greeting">Welcome back</h2>
+      <h2 className="login__greeting">Welcome back!</h2>
       <form className="login__form" id="signup-form" onSubmit={handleLogin}>
         <div className="login__form__group">
           <input
@@ -61,6 +62,18 @@ export default function Login({ onLogin }) {
         <div className="login__form__group">
           <button className="btn login__btn-text">Log in</button>
         </div>
+
+        <p className="login__form__alt">
+          Don't have an account?{" "}
+          <a
+            className="login__form__alt__link"
+            href="#"
+            onClick={() => setHomeDisplay("signup")}
+          >
+            Signup
+          </a>{" "}
+          instead.
+        </p>
       </form>
     </div>
   );

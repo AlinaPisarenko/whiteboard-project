@@ -1,12 +1,5 @@
-import React, {
-  useCallback,
-  useRef,
-  useState,
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-} from "react";
-// import { ColorPicker, ColorFormats } from "react-canvas-color-picker";
+import React, { useRef, useState, useEffect, useLayoutEffect } from "react";
+
 import rough from "roughjs/bundled/rough.cjs.js";
 import canvasToImage from "canvas-to-image";
 import { useHistory } from "react-router-dom";
@@ -23,6 +16,7 @@ import {
 
 const generator = rough.generator();
 
+//creating an element depending on tool type
 const createElement = (id, x1, y1, x2, y2, type, pickedColor) => {
   switch (type) {
     case "line":
@@ -43,16 +37,18 @@ const createElement = (id, x1, y1, x2, y2, type, pickedColor) => {
         fillStyle: { color: pickedColor },
       };
     case "text":
-      return { id, type, x1, y1, x2, y2, text: " " };
+      return { id, type, x1, y1, x2, y2, text: "" };
     default:
       throw new Error(`Type not recognised: ${type}`);
   }
 };
 
+//helper function, checking if mouse is near element
 const nearPoint = (x, y, x1, y1, name) => {
   return Math.abs(x - x1) < 5 && Math.abs(y - y1) < 5 ? name : null;
 };
 
+//helper function, checking if mouse is on th line
 const onLine = (x1, y1, x2, y2, x, y, maxDistance = 1) => {
   const a = { x: x1, y: y1 };
   const b = { x: x2, y: y2 };
@@ -138,6 +134,7 @@ const cursorForPosition = (position) => {
   }
 };
 
+//resizing elements
 const resizedCoordinates = (clientX, clientY, position, coordinates) => {
   const { x1, y1, x2, y2 } = coordinates;
   switch (position) {
@@ -216,7 +213,6 @@ const drawElement = (roughCanvas, context, element, pickedColor) => {
       context.fill(new Path2D(stroke));
       context.fillStyle = pickedColor;
       context.lineWidth = 1;
-
       break;
     case "text":
       context.textBaseline = "top";
@@ -238,30 +234,17 @@ export default function Whiteboard({
   onUpdateProject,
   projects,
   setProjects,
+  setDisplayScreen,
 }) {
   const canvasRef = useRef();
   const [elements, setElements, undo, redo] = useHistoryDraw([]);
   const [action, setAction] = useState("none");
-  const [tool, setTool] = useState("text");
+  const [tool, setTool] = useState("none");
   const [selectedElement, setSelectedElement] = useState(null);
   const [canvasImg, setCanvasImg] = useState();
   const history = useHistory();
   const textAreaRef = useRef();
   const [color, setColor] = React.useState({ r: 255, g: 255, b: 255, a: 1 });
-
-  // const [color, setColor] = useState({ r: 255, g: 255, b: 255, a: 1 });
-  // const colorPickerRef = useRef();
-  // const formats = useState("rgba");
-
-  // console.log(canvasImg);
-  // console.log("user", user);
-  // console.log(window.location.pathname);
-  // console.log(displayedProject);
-
-  // const handleChange = (event) => {
-  //   console.log(event);
-  //   // setColor((state) => ({ ...state, ...event.colors.rgba }));
-  // };
 
   const pickedColor = `rgba(${color.r},
       ${color.g},
@@ -398,9 +381,9 @@ export default function Whiteboard({
   };
   console.log("action on mouse down", action);
 
+  //function that is called on mouse move, behavior depends on selected tool and action
   const handleMouseMove = (event) => {
     const { clientX, clientY } = event;
-    // console.log(tool, action);
     if (tool === "selection") {
       const element = getElementAtPosition(clientX, clientY, elements);
       event.target.style.cursor = element
@@ -454,10 +437,10 @@ export default function Whiteboard({
     }
   };
 
+  //function that is called on mouse up, behavior depends on selected tool and action
   const handleMouseUp = (event) => {
-    console.log(action);
     const { clientX, clientY } = event;
-    console.log(selectedElement);
+
     if (selectedElement) {
       if (
         selectedElement.type === "text" &&
@@ -494,11 +477,6 @@ export default function Whiteboard({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // canvasToImage(canvasImg, {
-    //   name: "myImage",
-    //   type: "jpg",
-    //   quality: 1,
-    // });
 
     let image = new Image();
     image.src = canvasImg.toDataURL();
@@ -520,7 +498,7 @@ export default function Whiteboard({
         let newProject = await response.json();
         onAddProject(newProject);
         formInput.reset();
-        history.push(`/me`);
+        setDisplayScreen("projects");
       }
     } else {
       let response = await fetch(`/projects/${displayedProject.id}`, {
@@ -530,9 +508,9 @@ export default function Whiteboard({
 
       if (response.ok) {
         let updatedProject = await response.json();
-        formInput.reset();
 
         onUpdateProject(updatedProject);
+        formInput.reset();
         history.push(`/me`);
       }
     }
@@ -610,16 +588,14 @@ export default function Whiteboard({
         />
         <label htmlFor="ellipse">Ellipse</label> */}
         </div>
-
-        <button className="btn-w btn-w__left" onClick={undo}>
+        <button className="btn-w__left" onClick={undo}>
           {" "}
           <FontAwesomeIcon icon={faCircleLeft} />
         </button>
-        <button className="btn-w btn-w__right" onClick={redo}>
+        <button className="btn-w__right" onClick={redo}>
           {" "}
           <FontAwesomeIcon icon={faCircleRight} />
         </button>
-
         {action === "writing" ? (
           <textarea
             ref={textAreaRef}
@@ -629,39 +605,18 @@ export default function Whiteboard({
               top: selectedElement.y1 - 2,
               left: selectedElement.x1,
               font: "24px sans-serif",
-              // margin: 0,
-              // padding: 0,
-              // border: 0,
-              // outline: 0,
-              // resize: "auto",
-              // overflow: "hidden",
-
-              // background: "transparent",
+              zIndex: "300000",
+              margin: 0,
+              padding: 0,
+              border: 0,
+              outline: 0,
+              resize: "auto",
+              overflow: "hidden",
+              whiteSpace: "pre",
+              background: "transparent",
             }}
           />
         ) : null}
-
-        {/* <form
-        className="new-project-form"
-        id="new-project-form"
-        onSubmit={handleSubmit}
-      >
-        <input
-          className="new-project-form__input"
-          type="text"
-          placeholder="Title"
-          name="title"
-        ></input>
-        <input
-          className="new-project-form__input"
-          type="text"
-          placeholder="Description"
-          name="description"
-        ></input>
-        <button className="new-project-form__btn" id="download">
-          {!displayedProject ? "Create" : "Update"}
-        </button>
-      </form> */}
         <form
           className="login__form new-project-form"
           id="new-project-form"
@@ -698,16 +653,6 @@ export default function Whiteboard({
             </button>
           </div>
         </form>
-
-        {/* <ColorPicker
-          spectrum="hsva"
-          formats="rgba"
-          initialColor="r: 255, g: 255, b: 255, a: 1"
-          onPanStart={handleChange}
-          onPan={handleChange}
-          // ref={colorPickerRef}
-        /> */}
-
         <canvas
           id="canvas"
           width={window.innerWidth}
