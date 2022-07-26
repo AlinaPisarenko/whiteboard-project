@@ -6,6 +6,7 @@ export default function ProfileInfo({ allUsers, user }) {
 
   if (!allUsers) return <span class="loader"></span>;
 
+  //filtering users, that belong to the same team as user
   const filteredUsers = allUsers.filter((el) => el.team_id === user.team_id);
 
   return (

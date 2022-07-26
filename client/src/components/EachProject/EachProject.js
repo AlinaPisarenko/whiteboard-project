@@ -10,6 +10,8 @@ export default function EachProject({
   const history = useHistory();
   const { id, title, description, whiteboard } = project;
   const desc = description.substring(0, 170) + "...";
+
+  
   const handleClick = (e) => {
     e.preventDefault(e);
     setDisplayedProject(project);
@@ -17,6 +19,7 @@ export default function EachProject({
     history.push(`/projects/${id}`);
   };
 
+  //deleting project
   function handleDelete() {
     fetch(`/projects/${id}`, { method: "DELETE" });
     onDeleteProject(id);
