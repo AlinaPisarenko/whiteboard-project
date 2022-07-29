@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Review from "../Review/Review";
 
 export default function EachProjectModal({
@@ -36,7 +36,6 @@ export default function EachProjectModal({
     });
     if (response.ok) {
       let review = await response.json();
-
       setAllReviews((allReviews) => [...allReviews, review]);
       reviewInput.reset();
     } else {

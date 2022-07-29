@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import Typed from "react-typed";
 import Signup from "../LoginSignup/Signup";
 import Login from "../LoginSignup/Login";

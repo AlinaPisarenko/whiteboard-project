@@ -9,7 +9,8 @@ export default function EachProject({
 }) {
   const history = useHistory();
   const { id, title, description, whiteboard } = project;
-  const desc = description.substring(0, 170) + "...";
+  const desc = description.substring(0, 150) + "...";
+
   const handleClick = (e) => {
     e.preventDefault(e);
     setDisplayedProject(project);
@@ -17,16 +18,24 @@ export default function EachProject({
     history.push(`/projects/${id}`);
   };
 
+  //deleting project
   function handleDelete() {
     fetch(`/projects/${id}`, { method: "DELETE" });
     onDeleteProject(id);
   }
 
   return (
-    <div>
-      <div className="project-container-personal">
-        <div className="each-project-personal" onClick={handleClick}>
-          <img src={whiteboard} className="project-img-personal"></img>
+    <div className="card-each" onClick={handleClick}>
+      <div class="card-each__side card-each__side--front">
+        <h4 className="project-title-personal">{title}</h4>
+        <p className="project-description-personal">
+          {description.length > 150 ? desc : description}{" "}
+        </p>
+        <a href="#" className="delete-personal" onClick={handleDelete}>
+          &times;
+        </a>
+      </div>
+      {/* <img src={whiteboard} className="project-img-personal"></img>
 
           <svg className="svg-element-personal" id={project.id}>
             <path
@@ -39,13 +48,11 @@ export default function EachProject({
           <p className="project-description-personal">
             {" "}
             {description.length > 170 ? desc : description}{" "}
-          </p>
-        </div>
-        <a
-          href="#"
-          className="project-container__delete-btn delete-personal"
-          onClick={handleDelete}
-        >
+          </p> */}
+
+      <div class="card-each__side card-each__side--back ">
+        <img src={whiteboard} className="project-img-personal"></img>
+        <a href="#" className="delete-personal" onClick={handleDelete}>
           &times;
         </a>
       </div>

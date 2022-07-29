@@ -13,9 +13,9 @@
 
 .user-projects {
   position: absolute;
-  left: 5.5rem;
+  left: 5.6rem;
   top: 4.5rem;
-  width: 65.5vw;
+  width: 65.7vw;
   display: flex;
   flex-wrap: wrap;
 
@@ -31,6 +31,10 @@
   width: 70vw;
 }
 .carousel {
+  height: 40rem;
+  padding-left: 1rem;
+  padding-top: 2rem;
+  margin-top: 8rem;
   display: flex;
   flex-direction: row;
   overflow-y: scroll;
@@ -38,6 +42,7 @@
     display: none;
   }
 }
+
 .search-bar {
   position: absolute;
   z-index: 10000;
@@ -53,11 +58,4 @@
       border: none;
     }
   }
-}
-.img-wrap-thin {
-  position: absolute;
-  top: 1vh;
-  right: 4vw;
-  width: 22vw;
-  height: 46vh;
 }

@@ -1,5 +1,5 @@
 import { useHistory } from "react-router-dom";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function Login({ onLogin, setHomeDisplay }) {
   const history = useHistory();

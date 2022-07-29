@@ -38,25 +38,59 @@ export default function NavBar({ setUser, setDisplayScreen, displayScreen }) {
   }
 
   return (
-    <div className="navigation">
-      <img className="nav-bar-new" src={logo} />
-      <ul className="menu-bar">
-        {}
-        <a href="#" className="nav-link" onClick={handleViewProjects}>
+    // <div className="navigation">
+    //   {/* <img className="nav-bar-new" src={logo} /> */}
+    //   <ul className="menu-bar">
+    //     {}
+    //     <a href="#" className="nav-link" onClick={handleViewProjects}>
+    //       <FontAwesomeIcon icon={faFolderClosed} />
+    //     </a>
+    //     <a href="#" className="nav-link" onClick={handleViewAllProjects}>
+    //       <FontAwesomeIcon icon={faGlobe} />
+    //     </a>
+
+    //     <a href="#" className="nav-link" onClick={handleAddNew}>
+    //       <FontAwesomeIcon icon={faCirclePlus} />
+    //     </a>
+
+    //     <a href="#" className="nav-link" onClick={handleLogoutClick}>
+    //       <FontAwesomeIcon icon={faRightFromBracket} />
+    //     </a>
+    //   </ul>
+    // </div>
+
+    <nav class="nav__cont">
+      <ul class="nav">
+        <li class="nav__items ">
           <FontAwesomeIcon icon={faFolderClosed} />
-        </a>
-        <a href="#" className="nav-link" onClick={handleViewAllProjects}>
+          <a href="" onClick={handleViewProjects}>
+            My Projects
+          </a>
+        </li>
+
+        <li class="nav__items ">
           <FontAwesomeIcon icon={faGlobe} />
-        </a>
 
-        <a href="#" className="nav-link" onClick={handleAddNew}>
+          <a href="" onClick={handleViewAllProjects}>
+            Search All
+          </a>
+        </li>
+
+        <li class="nav__items ">
           <FontAwesomeIcon icon={faCirclePlus} />
-        </a>
+          <a href="" onClick={handleAddNew}>
+            Create New
+          </a>
+        </li>
 
-        <a href="#" className="nav-link" onClick={handleLogoutClick}>
+        <li class="nav__items ">
           <FontAwesomeIcon icon={faRightFromBracket} />
-        </a>
+
+          <a href="" onClick={handleLogoutClick}>
+            Logout
+          </a>
+        </li>
       </ul>
-    </div>
+    </nav>
   );
 }

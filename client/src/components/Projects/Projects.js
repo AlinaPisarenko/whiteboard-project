@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import EachProjectModal from "../EachProjectModal/EachProjectModal";
 import SingleProject from "../SingleProject/SingleProject";
 import ProfileInfo from "../ProfileInfo/ProfileInfo";

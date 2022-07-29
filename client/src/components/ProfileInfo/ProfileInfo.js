@@ -6,15 +6,16 @@ export default function ProfileInfo({ allUsers, user }) {
 
   if (!allUsers) return <span class="loader"></span>;
 
+  //filtering users, that belong to the same team as user
   const filteredUsers = allUsers.filter((el) => el.team_id === user.team_id);
 
   return (
     <>
-      <img src={wrap} className="img-wrap-thin" />
       <div className="userinfo">
         <div className="current-user">
           <div className="image-container"></div>
           <img src={profile_img} className="profile-img" />
+          <img src={wrap} className="img-wrap-thin" />
           <h2 className="user-name">{name}</h2>
         </div>
         <div className="all-users__team-info">
