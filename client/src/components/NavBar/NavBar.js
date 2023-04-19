@@ -15,6 +15,7 @@ export default function NavBar({ setUser, setDisplayScreen, displayScreen }) {
   function handleLogoutClick() {
     fetch("/logout", { method: "DELETE" }).then((r) => {
       if (r.ok) {
+        console.log("hello")
         setUser(null);
         history.push(`/`);
       }
@@ -38,26 +39,6 @@ export default function NavBar({ setUser, setDisplayScreen, displayScreen }) {
   }
 
   return (
-    // <div className="navigation">
-    //   {/* <img className="nav-bar-new" src={logo} /> */}
-    //   <ul className="menu-bar">
-    //     {}
-    //     <a href="#" className="nav-link" onClick={handleViewProjects}>
-    //       <FontAwesomeIcon icon={faFolderClosed} />
-    //     </a>
-    //     <a href="#" className="nav-link" onClick={handleViewAllProjects}>
-    //       <FontAwesomeIcon icon={faGlobe} />
-    //     </a>
-
-    //     <a href="#" className="nav-link" onClick={handleAddNew}>
-    //       <FontAwesomeIcon icon={faCirclePlus} />
-    //     </a>
-
-    //     <a href="#" className="nav-link" onClick={handleLogoutClick}>
-    //       <FontAwesomeIcon icon={faRightFromBracket} />
-    //     </a>
-    //   </ul>
-    // </div>
 
     <nav class="nav__cont">
       <ul class="nav">
